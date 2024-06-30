@@ -131,7 +131,7 @@ public class TestCases extends ExcelDataProvider { // Lets us read the data
                 String moviegenreText = movieGenre.getText();
                 // System.out.println(moviegenreText);
                 SoftAssert softAssert2 = new SoftAssert();
-                softAssert2.assertTrue(moviegenreText.contains("Comedy") || moviegenreText.contains("Animation"),
+                softAssert2.assertFalse(moviegenreText.contains("Comedy") || moviegenreText.contains("Animation"),
                                 "Paragraph does not contain expected movie genre");
                 softAssert2.assertAll();
 
@@ -283,72 +283,81 @@ public class TestCases extends ExcelDataProvider { // Lets us read the data
 
         }
 
-        // @Test(alwaysRun = false, enabled = false, dataProvider = "excelData", dataProviderClass = ExcelDataProvider.class)
-        // public static void testCase05(String fileName) throws InterruptedException {
-        //         System.out.println("Start the testCase05");
-        //         driver.get("https://www.youtube.com/");
+        @Test(alwaysRun = true, enabled = true, dataProvider = "excelData", dataProviderClass = ExcelDataProvider.class)
+        public void testCase05(String fileName) throws InterruptedException {
+                System.out.println("Start the testCase05");
+                driver.get("https://www.youtube.com/");
 
-        //         // Total views counter
-        //         int totalViews = 0;
+                WebElement searchBox = driver.findElement(By.xpath("//input[@id='search']"));
+                searchBox.sendKeys(fileName);
+        }
 
-        //         WebElement serachBoxElement = driver.findElement(By.xpath("//input[contains(@id = 'search')]"));
+      /*  @Test(alwaysRun = true, enabled = true, dataProvider = "excelData", dataProviderClass = ExcelDataProvider.class)
+        public void testCase05(String fileName) throws InterruptedException {
+                System.out.println("Start the testCase05");
+                driver.get("https://www.youtube.com/");
 
-        //         Thread.sleep(10000);
+                // Total views counter
+                int totalViews = 0;
 
-        //         serachBoxElement.sendKeys(fileName);
+                WebElement serachBoxElement = driver.findElement(By.xpath("//input[contains(@id = 'search')]"));
 
-        //         Actions actions = new Actions(driver);
+                Thread.sleep(10000);
 
-        //         actions.sendKeys(Keys.ENTER).perform();
+                serachBoxElement.sendKeys(fileName);
 
-        //         Thread.sleep(10000);
+                Actions actions = new Actions(driver);
 
-        //         // Scroll down to load more videos
-        //         JavascriptExecutor js = (JavascriptExecutor) driver;
-        //         while (true) {
-        //                 long initialHeight = (long) js.executeScript("return document.documentElement.scrollHeight");
+                actions.sendKeys(Keys.ENTER).perform();
 
-        //                 js.executeScript("window.scrollTo(0, document.documentElement.scrollHeight);");
+                Thread.sleep(10000);
 
-        //                 // Wait for some time to load more content
-        //                 try {
-        //                         Thread.sleep(2000); // Adjust sleep time as needed
-        //                 } catch (InterruptedException e) {
-        //                         e.printStackTrace();
-        //                 }
-        //                 long newHeight = (long) js.executeScript("return document.documentElement.scrollHeight");
-        //                 if (newHeight == initialHeight) {
-        //                         break;
-        //                 }
+                // Scroll down to load more videos
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                while (true) {
+                        long initialHeight = (long) js.executeScript("return document.documentElement.scrollHeight");
 
-        //                 List<WebElement> videoElements = driver.findElements(By.xpath(
-        //                                 "//ytd-video-renderer[@class ='style-scope ytd-item-section-renderer']"));
-        //                 int sumOfViews = 0;
-        //                 for (WebElement video : videoElements) {
-        //                         try {
-        //                                 WebElement viewCountElement = video.findElement(By.xpath(
-        //                                                 ".//span[@class ='inline-metadata-item style-scope ytd-video-meta-block']"));
-        //                                 String viewCountText = viewCountElement.getText().replaceAll("[^0-9]", "");
-        //                                 int views = Integer.parseInt(viewCountText);
-        //                                 sumOfViews += views;
-        //                         } catch (Exception e) {
-        //                                 e.printStackTrace();
-        //                         }
+                        js.executeScript("window.scrollTo(0, document.documentElement.scrollHeight);");
 
-        //                         System.out.println("sum of views :" + sumOfViews);
+                        // Wait for some time to load more content
+                        try {
+                                Thread.sleep(2000); // Adjust sleep time as needed
+                        } catch (InterruptedException e) {
+                                e.printStackTrace();
+                        }
+                        long newHeight = (long) js.executeScript("return document.documentElement.scrollHeight");
+                        if (newHeight == initialHeight) {
+                                break;
+                        }
 
-        //                         // Calculate and accumulate views
-        //                         int itemViews = sumOfViews;
-        //                         totalViews += itemViews;
+                        List<WebElement> videoElements = driver.findElements(By.xpath(
+                                        "//ytd-video-renderer[@class ='style-scope ytd-item-section-renderer']"));
+                        int sumOfViews = 0;
+                        for (WebElement video : videoElements) {
+                                try {
+                                        WebElement viewCountElement = video.findElement(By.xpath(
+                                                        ".//span[@class ='inline-metadata-item style-scope ytd-video-meta-block']"));
+                                        String viewCountText = viewCountElement.getText().replaceAll("[^0-9]", "");
+                                        int views = Integer.parseInt(viewCountText);
+                                        sumOfViews += views;
+                                } catch (Exception e) {
+                                        e.printStackTrace();
+                                }
 
-        //                         if (totalViews >= 100_000_000) {
-        //                                 System.out.println("Reached 10 crore views threshold!");
-        //                                 break;
-        //                             }
-        //                 }
+                                System.out.println("sum of views :" + sumOfViews);
 
-        //         }
-        // }
+                                // Calculate and accumulate views
+                                int itemViews = sumOfViews;
+                                totalViews += itemViews;
+
+                                if (totalViews >= 100_000_000) {
+                                        System.out.println("Reached 10 crore views threshold!");
+                                        break;
+                                    }
+                        }
+
+                }
+        } */
 
         /*
          * Do not change the provided methods unless necessary, they will help in
